@@ -1,0 +1,13 @@
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Codigo de usuario para crear sala de chat" [(ngModel)]="codigo">
+    <button mat-fab color="primary" class="find" (click)="find()">Find</button>
+</mat-form-field>
+<mat-card class="example-card" *ngFor="let chat of chats">
+    <mat-card-header>
+        <div mat-card-avatar><mat-icon>alternate_email</mat-icon></div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <mat-card-title>{{chat.NOMBRE}}</mat-card-title>
+        <mat-card-subtitle>{{chat.ID_USUARIO}}</mat-card-subtitle>
+        <button mat-fab color="accent" class="chat" (click)="chatear(chat.ID_CHAT)">Chat</button>
+    </mat-card-header>
+</mat-card>

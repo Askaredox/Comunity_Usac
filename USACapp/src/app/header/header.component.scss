@@ -1,0 +1,31 @@
+
+body {
+    background: #333;
+  }
+  
+  h1 {
+    font-size: 40px;
+    padding: 12px 20px;
+    font-family: "Avenir", "Roboto", "Proxima Nova", "Helvetica";
+    text-align: center;
+  }
+  
+  .top-header {
+    background: whitesmoke;
+    height: 54px;
+    
+    
+    background-image: linear-gradient(
+      to right, 
+      orange,
+      orangered 25%,
+      skyblue 25%,
+      deepskyblue 50%,
+      pink 50%,
+      firebrick 75%,
+      green 75%
+    );
+    background-size: 100% 6px;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+  }

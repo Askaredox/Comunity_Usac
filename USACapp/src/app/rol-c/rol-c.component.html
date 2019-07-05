@@ -1,0 +1,19 @@
+<h2 style="text-align: center">CREAR ROLES</h2>
+<div class="example-container">
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="nombre" type="text" placeholder="Nombre" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="descripcion" type="text" placeholder="Descipcion" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <br/>
+    <div class="example-button-row">
+        <button (click)="onSubmit()" mat-raised-button color="primary">Ingresar Rol</button>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<h2 style="text-align: center">USUARIOS</h2>
+<mat-list>
+    <mat-list-item *ngFor="let usuario of usuarios">
+        <mat-icon mat-list-icon>alternate_email</mat-icon>
+        <h2 mat-line><b>{{usuario.ID_USUARIO}}</b></h2>
+        <p mat-line> <i>{{usuario.NOMBRE}}</i> </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

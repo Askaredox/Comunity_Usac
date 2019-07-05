@@ -1,0 +1,9 @@
+<h2 style="text-align: center">FACULTADES</h2>
+<mat-list>
+    <mat-list-item *ngFor="let fac of facultades">
+        <mat-icon mat-list-icon>business</mat-icon>
+        <h2 mat-line><b>{{fac.NOMBRE}}</b></h2>
+        <p mat-line> <i>{{fac.DESCRIPCION}}</i> </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

@@ -1,0 +1,9 @@
+<h2 style="text-align: center">ROLES</h2>
+<mat-list>
+    <mat-list-item *ngFor="let rol of roles">
+        <mat-icon mat-list-icon>work</mat-icon>
+        <h2 mat-line><b>{{rol.NOMBRE}}</b></h2>
+        <p mat-line> <i>{{rol.DESCRIPCION}}</i> </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

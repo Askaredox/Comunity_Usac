@@ -1,0 +1,14 @@
+<mat-nav-list style="text-align: center">
+    <h3>Crea un nuevo tema</h3>
+    <mat-form-field>
+        <input matInput placeholder="Titulo" [(ngModel)]="titulo">
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+        <textarea matInput placeholder="Contenido" [(ngModel)]="contenido"></textarea>
+    </mat-form-field>
+    <div style="text-align: right">
+            <button style="margin: 10px" (click)="submit()" mat-raised-button color="primary">Publicar!</button>
+            <button (click)="back()" mat-raised-button color="primary">Cancelar</button>
+    </div>
+</mat-nav-list>

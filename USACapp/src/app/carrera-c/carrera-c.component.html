@@ -1,0 +1,23 @@
+<h2 style="text-align: center">CREAR CARRERA</h2>
+<div class="example-container">
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="nombre" type="text" placeholder="Nombre" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <mat-label>Seleccione una facultad</mat-label>
+            <mat-select [(value)]="id_facultad">
+                <mat-option *ngFor="let fac of facultades" value="{{fac.ID_FACULTAD}}">{{fac.NOMBRE}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <br/>
+    <div class="example-button-row">
+        <button (click)="onSubmit()" mat-raised-button color="primary">Ingresar Carrera</button>
+    </div>
+
+</div>

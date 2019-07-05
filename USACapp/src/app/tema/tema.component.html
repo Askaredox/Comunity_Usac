@@ -1,0 +1,47 @@
+<h2 style="text-align: center">TEMAS</h2>
+
+<mat-card class="example-card" *ngFor="let tema of temas">
+    <mat-card-header>
+        <div mat-card-avatar><mat-icon>android</mat-icon></div>
+            
+        <mat-card-title>{{tema.TITULO}}</mat-card-title>
+        <mat-card-subtitle>[{{tema.NOMBRE}}]        {{tema.FECHA.substring(0,10)}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-content>
+        <pre>{{tema.CONTENIDO}}</pre>
+    </mat-card-content>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-actions>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Comentarios
+                </mat-panel-title>
+                <mat-panel-description>
+                    Deja tu comentario...
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+        
+            <mat-list>
+                <mat-list-item *ngFor="let respuesta of tema.RESPS">
+                    <mat-icon mat-list-icon>account_circle</mat-icon>
+                    <h4 mat-line><b>{{respuesta.NOMBRE}}</b></h4>
+                    <p mat-line>{{respuesta.TEXTO}}</p>
+                </mat-list-item>
+            </mat-list>
+            
+            <mat-form-field style="width: 85%; left:15px;">
+                <input matInput placeholder="Deja tu comentario..." [(ngModel)]="tema.TEXTO">
+                <button mat-icon-button color="accent" (click)="comment(tema); tema.TEXTO=''">
+                        <mat-icon>comment</mat-icon>
+                    </button>
+            </mat-form-field>
+        </mat-expansion-panel>
+    </mat-card-actions>
+    <mat-divider [inset]="true"></mat-divider>
+</mat-card>
+<button (click)="addTema()" mat-fab class="add">
+    <mat-icon>edit</mat-icon>
+</button>

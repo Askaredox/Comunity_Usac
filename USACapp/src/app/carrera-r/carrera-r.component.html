@@ -1,0 +1,10 @@
+<h2 style="text-align: center">CARRERAS</h2>
+<mat-list>
+    <mat-list-item *ngFor="let carf of carfacs">
+        <mat-icon mat-list-icon>grade</mat-icon>
+        <h2 mat-line><b>{{carf.CARRERA}}</b></h2>
+        <p mat-line> <i>{{carf.FACULTAD}}</i> </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>
+

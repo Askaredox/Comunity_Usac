@@ -1,0 +1,20 @@
+<div #scrollMe class="example-container">
+    <mat-card *ngFor="let men of mens" [ngClass]="men.estilo">
+        <mat-card-header>
+            <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+            <mat-card-subtitle>{{men.NOMBRE}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <pre>{{men.TEXTO}}</pre>
+        </mat-card-content>
+        
+    </mat-card>
+</div>
+<div class="ancho">
+    <mat-form-field style="width:340px">
+        <input matInput placeholder="Escribe un mensaje" [(ngModel)]="mensaje">
+        <button mat-fab color="primary" class="find" (click)="send()">Send</button>
+    </mat-form-field>
+
+</div>
+<!--account_circle-->

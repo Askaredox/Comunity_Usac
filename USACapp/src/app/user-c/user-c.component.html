@@ -1,0 +1,46 @@
+<h2 style="text-align: center">CREAR USUARIO</h2>
+<div class="example-container">
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="id_usuario" type="number" placeholder="Carnet o Código usuario" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="nombre" type="text" placeholder="Nombre" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="contrasena" type="password" placeholder="Contrasena" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="contrasena2" type="password" placeholder="Contrasena x2" >
+        </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <mat-label>Select a Rol</mat-label>
+            <mat-select [(value)]="id_rol">
+                <mat-option *ngFor="let rol of roles" value="{{rol.ID_ROL}}">{{rol.NOMBRE}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <section style="text-align: left" class="N" *ngFor="let car of carreras; let i=index">
+        <mat-checkbox [(ngModel)]="this.selected[i].checked" class="example-margin">{{car.NOMBRE}}</mat-checkbox>
+    </section>
+    <mat-divider></mat-divider>
+    <br/>
+    <div class="example-button-row">
+        <button (click)="onSubmit()" mat-raised-button color="primary">Ingresar Usuario</button>
+    </div>
+
+</div>

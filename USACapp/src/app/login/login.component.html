@@ -1,0 +1,29 @@
+
+<div style="text-align: center">
+    <h2>Login</h2>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="user" type="number" placeholder="Carnet o Código usuario" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="pass" type="password" placeholder="Contrasena" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <mat-label>Select a Rol</mat-label>
+            <mat-select [(value)]="selected">
+                <mat-option *ngFor="let rol of roles" value="{{rol.ID_ROL}}">{{rol.NOMBRE}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <br/>
+    <div class="example-button-row">
+        <button (click)="submit()" mat-raised-button color="primary">Login</button>
+    </div>
+</div>

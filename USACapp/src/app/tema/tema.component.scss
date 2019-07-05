@@ -1,0 +1,27 @@
+pre{
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+}
+
+.example-card {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 15px;
+    background-color: cornsilk;
+}
+button{
+    position: absolute;
+    bottom: 2px;
+}
+.add{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+::ng-deep .mat-line{
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+}
+::ng-deep  .mat-list .mat-list-item{
+    height:initial!important;
+}
