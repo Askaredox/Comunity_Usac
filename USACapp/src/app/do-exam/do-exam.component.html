@@ -1,0 +1,37 @@
+<mat-vertical-stepper class="stepper" [linear]="true" #stepper>
+    <mat-step [stepControl]="start">
+        <ng-template matStepLabel>Start your Quiz</ng-template>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step *ngFor="let preg of preguntas" [stepControl]="preg.TEXTO">
+        <ng-template matStepLabel>{{preg.TEXTO}}</ng-template>
+        <div *ngIf="preg.TIPO=='T';else O">
+            <mat-form-field style="width: 80%">
+                <input matInput placeholder="Respuesta" [(ngModel)]="preg.temp">
+            </mat-form-field>
+        </div>
+        <ng-template #O>
+            <mat-radio-group class="radio-group" [(ngModel)]="preg.temp">
+                <mat-radio-button *ngFor="let res of preg.RESPUESTA" [value]="res.CORRECTA" required>
+                    {{res.TEXTO}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </ng-template>
+        <div>
+
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="show()">Send</button>
+        </div>
+    </mat-step>
+</mat-vertical-stepper>

@@ -11,6 +11,7 @@ export interface Examen{
   NOMBRE:string;
   FECHA:string;
   PREGUNTAS:Pregunta[];
+  ESTUDIANTES:Estudiante[];
 }
 export interface Pregunta{
   ID_PREGUNTA:number;
@@ -24,6 +25,12 @@ export interface Respuesta{
   ID_PREGUNTA:number;
   CORRECTA:string;
   TEXTO:string;
+}
+export interface Estudiante{
+  NOMBRE:string,
+  ID_USUARIO:number,
+  NOTA:number,
+  FECHA:string
 }
 
 @Component({
@@ -64,16 +71,26 @@ export class TExamComponent implements OnInit {
         if(!data.length){
           this.examenes[0]=data;
           this.examenes[0].PREGUNTAS=Array<Pregunta>();
+          this.examenes[0].ESTUDIANTES=Array<Estudiante>();
         }
         else{
           this.examenes=data;
-          for(var i=0;i<this.examenes.length;i++)
+          for(var i=0;i<this.examenes.length;i++){
             this.examenes[i].PREGUNTAS=Array<Pregunta>();
+            this.examenes[i].ESTUDIANTES=Array<Estudiante>();
+          }
         }
       }
     )
   }
-
+  notas(id_examen:number,i:number){
+    this.examServ.getNotaT(id_examen)
+    .subscribe(
+      data=>{
+        this.examenes[i].ESTUDIANTES=data;
+      }
+    )
+  }
 
 
   pregunta(exam:number,i:number){

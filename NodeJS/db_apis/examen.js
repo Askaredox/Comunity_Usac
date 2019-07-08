@@ -9,6 +9,9 @@ const queryP =
 const queryR = 
     `SELECT * FROM Respuesta`
 ;
+const queryNo =
+    `SELECT u.nombre, u.id_usuario, s.nota, s.fecha FROM Sol_examen s, Usuario u, Examen e WHERE u.id_usuario = s.id_usuario AND e.id_examen=s.id_examen`
+;
 async function findE(context) {
     let query = queryE;
     const binds = {};
@@ -62,7 +65,6 @@ async function findR(context) {
 
 
 
-
 const createEQ =
     `INSERT INTO Examen(id_usuario, nombre, fecha) VALUES (:ID_USUARIO,:NOMBRE,SYSDATE) RETURNING id_examen INTO :tmp`
 ;
@@ -71,6 +73,9 @@ const createPQ =
 ;
 const createRQ =
     `INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (:ID_PREGUNTA,:CORRECTA,:TEXTO)`
+;
+const createNota =
+    `INSERT INTO Sol_examen(id_usuario, id_examen, fecha, nota) VALUES (:ID_USUARIO, :ID_EXAMEN, SYSDATE, :NOTA)`
 ;
 
 async function createE(emp) {
@@ -100,3 +105,13 @@ async function createR(emp) {
     return resp;
 
 }module.exports.createR = createR;
+
+async function createNo(emp) {
+    const usuario = Object.assign({}, emp);
+    //console.log(emp);
+    console.log(usuario);
+    const result = await database.simpleExecute(createNota, usuario);
+    
+    return usuario;
+
+}module.exports.createNo = createNo;

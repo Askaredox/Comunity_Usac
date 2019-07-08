@@ -22,6 +22,7 @@ import { TopEstTComponent } from './top-est-t/top-est-t.component';
 import { CreateExamComponent } from './create-exam/create-exam.component';
 import { TExamComponent } from './texam/texam.component';
 import { StExamComponent } from './st-exam/st-exam.component';
+import { DoExamComponent } from './do-exam/do-exam.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'salaChat', component: SalaChatComponent },
       { path: "salaChat/:id", component: ChatearComponent },
       { path: "StExam", component: StExamComponent },
+      { path: "doExam/:id", component: DoExamComponent },
     ]
   },
   { path: 'teacher_main', component: TeacherMainComponent,

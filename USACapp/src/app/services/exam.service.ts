@@ -34,4 +34,14 @@ export class ExamService {
   getExam(nombre:string):Observable<any>{
     return this.http.get<any>(url+'/api/exam/'+nombre);
   }
+  setNota(nota){
+    let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
+    return this.http.post(url+'/api/exam',nota,{headers});
+  }
+  getNotaS(id_usuario:number){
+    return this.http.get<any>(url+'/api/nota/S&'+id_usuario);
+  }
+  getNotaT(id_exam:number){
+    return this.http.get<any>(url+'/api/nota/T&'+id_exam);
+  }
 }

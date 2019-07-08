@@ -35,6 +35,15 @@ function getRespFromRec(req) {
     };
     return Examen;
 }
+function getNotaFromRec(req) {
+    
+    const Examen = {
+        ID_USUARIO: req.body.ID_USUARIO,
+        ID_EXAMEN: req.body.ID_EXAMEN,
+        NOTA: req.body.NOTA
+    };
+    return Examen;
+}
 /******************************************************************************************/
 
 async function get(req, res, next) {
@@ -114,3 +123,15 @@ async function gete(req, res, next) {
         next(err);
     }
 }module.exports.gete = gete;
+
+async function poste(req, res, next) {
+    try {
+        res.header("Access-Control-Allow-Origin", "*");
+        let asig = getNotaFromRec(req);
+        //console.log(req);
+        asig = await examens.createNo(asig);
+        res.status(201).json(asig);
+    } catch (err) {
+        next(err);
+    }
+}module.exports.poste = poste;

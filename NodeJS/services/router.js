@@ -14,6 +14,7 @@ const chat = require('../controllers/chat.js');
 const mensaje = require('../controllers/mensaje.js');
 const estadistica = require('../controllers/estadistica.js');
 const examen = require('../controllers/examen.js');
+const nota = require('../controllers/nota.js');
 /*********************** get / posts ***********************/
 
 
@@ -72,6 +73,13 @@ router.route('/examen/(:tipo)?(&:id)?')
     .get(examen.get)
     .post(examen.post);
 
+router.options('/exam',cors()); 
 router.route('/exam/:nombre?')
     .get(examen.gete)
+    .post(examen.poste);
+
+router.options('/nota',cors()); 
+router.route('/nota/(:tipo)?(&:id)?')
+    .get(nota.get)
+
 module.exports = router;

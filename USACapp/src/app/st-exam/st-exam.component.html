@@ -1,1 +1,21 @@
-<p>st-exam works!</p>
+<mat-card class="find">
+    <mat-form-field class="input">
+        <input matInput placeholder="ROOM" [(ngModel)]="room">
+    </mat-form-field>
+    <button mat-mini-fab class="butt" (click)="find()">
+        <mat-icon>find_in_page</mat-icon>
+    </button>
+</mat-card>
+<mat-list style="width: 80%;margin:auto;">
+    <h3 mat-subheader>Examenes hechos</h3>
+    <mat-list-item *ngFor="let not of notas">
+        <mat-icon *ngIf="not.NOTA>=61;else cl" mat-list-icon>check</mat-icon>
+        <ng-template #cl>
+            <mat-icon mat-list-icon>close</mat-icon>
+        </ng-template>
+        
+        <h4 mat-line>NOMBRE: "{{not.NOMBRE}}"</h4>
+        <p mat-line> Nota: {{not.NOTA}}% </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>

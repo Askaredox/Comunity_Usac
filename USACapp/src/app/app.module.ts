@@ -33,6 +33,7 @@ import { TopCatTComponent } from './top-cat-t/top-cat-t.component';
 import { CreateExamComponent } from './create-exam/create-exam.component';
 import { TExamComponent,NewExamComponent } from './texam/texam.component';
 import { StExamComponent } from './st-exam/st-exam.component';
+import { DoExamComponent } from './do-exam/do-exam.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { StExamComponent } from './st-exam/st-exam.component';
     CreateExamComponent,
     TExamComponent,
     NewExamComponent,
-    StExamComponent
+    StExamComponent,
+    DoExamComponent
   ],
   imports: [
     BrowserModule,

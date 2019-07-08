@@ -30,7 +30,27 @@
     </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-actions>
-        
+        <mat-expansion-panel (opened)="notas(exa.ID_EXAMEN,i)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Notas
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Todas las notas de estudiantes...
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+            
+                <mat-list>
+                    <mat-list-item *ngFor="let est of exa.ESTUDIANTES">
+                        
+                        <mat-icon mat-list-icon>account_circle</mat-icon>
+                        <h4 mat-line><b>{{est.ID_USUARIO}}  </b>[<i>{{est.NOMBRE}}</i>]</h4>
+                        <p mat-line>Nota: {{est.NOTA}}%</p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
     </mat-card-actions>
     <mat-divider [inset]="true"></mat-divider>
 </mat-card>
