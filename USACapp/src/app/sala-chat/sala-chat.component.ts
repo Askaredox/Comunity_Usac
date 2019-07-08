@@ -50,30 +50,36 @@ export class SalaChatComponent implements OnInit {
   find(){
     this.usrSer.getUser(+this.codigo)
     .subscribe(val=>{
+      if(val==null){
+
+      }
       let sala={
         ID_USUARIO1:this.user.ID_USUARIO,
         ID_USUARIO2:val.ID_USUARIO,
         HABILITADO:"Y"
       }
       this.chatSer.addSala(sala)
-      .subscribe(val=>{
-        this.codigo="";
-        this.actualizar();
-      },
+      .subscribe(
+        val=>{
+          this.codigo="";
+          this.actualizar();
+        },
         err=>{
-          console.log(err)
+          alert("No existe dicho usuario");
         })
     },
     err=>{
-      alert("No existe dicho usuario")
+      alert("No existe dicho usuario");
     });
   }
   chatear(id_chat:number){
     console.log(id_chat);
-    this.router.navigate(['/student_main/salaChat',id_chat])
+    if(this.user.ID_ROL==2)
+      this.router.navigate(['/student_main/salaChat',id_chat])
+    else if(this.user.ID_ROL==3)
+      this.router.navigate(['/teacher_main/salaChat',id_chat])
   }
-
-
+  
   public data:any=[]
   saveInLocal(key, val): void {
     this.storage.set(key, val);

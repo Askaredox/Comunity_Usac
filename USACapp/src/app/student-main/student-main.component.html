@@ -1,52 +1,9 @@
 <div>
     <button [routerLink]="['tema']" mat-button color="primary">HOME</button>
+    <button [routerLink]="['StExam']" mat-button color="primary">EXAMENES</button>
     <button [routerLink]="['salaChat']" mat-button color="primary">CHAT</button>
-    <!--
-    <button mat-button color="primary" [matMenuTriggerFor]="admin">HOME</button>
-    <mat-menu #admin="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="usuarios">Usuarios</button>
-        <button mat-menu-item [matMenuTriggerFor]="roles">Roles</button>
-        <button mat-menu-item [matMenuTriggerFor]="facultades">Facultades</button>
-        <button mat-menu-item [matMenuTriggerFor]="carreras">Carreras</button>
-    </mat-menu>
-    
-    <mat-menu #usuarios="matMenu">
-        <a [routerLink]="['userC']" mat-menu-item>Crear Usuario</a>
-        <a [routerLink]="['userR']" mat-menu-item>Leer</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
-    </mat-menu>
-
-    <mat-menu #roles="matMenu">
-        <a [routerLink]="['rolC']" mat-menu-item>Crear Rol</a>
-        <a [routerLink]="['rolR']" mat-menu-item>Leer</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
-    </mat-menu>
-
-    <mat-menu #facultades="matMenu">
-        <a [routerLink]="['facultadC']" mat-menu-item>Crear Facultad</a>
-        <a [routerLink]="['facultadR']" mat-menu-item>Leer</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
-    </mat-menu>
-
-    <mat-menu #carreras="matMenu">
-        <a [routerLink]="['carreraC']" mat-menu-item>Crear Carrera</a>
-        <a [routerLink]="['carreraR']" mat-menu-item>Leer</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
-        <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
-    </mat-menu>
-    -->
-    <button (click)="logout()" mat-button color="warn">Logout</button>
+    <button (click)="logout()" mat-button color="warn" style="position:absolute; right: 0px">Logout</button>
     <mat-divider></mat-divider>
 </div>
 <p style="text-align: center">as {{user.NOMBRE}}</p>
 <router-outlet></router-outlet>
-<pre class="space"> 
-
-
-
-    
-</pre>
-

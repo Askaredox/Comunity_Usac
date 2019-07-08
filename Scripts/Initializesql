@@ -1,4 +1,7 @@
-
+DROP TABLE Sol_examen;
+DROP TABLE Respuesta;
+DROP TABLE Pregunta;
+DROP TABLE Examen;
 DROP TABLE Mensaje;
 DROP TABLE Chat;
 DROP TABLE Respuesta;
@@ -12,9 +15,12 @@ DROP SEQUENCE rol_seq;
 DROP SEQUENCE fac_seq;
 DROP SEQUENCE car_seq;
 DROP SEQUENCE tem_seq;
-DROP SEQUENCE resp_seq;
+DROP SEQUENCE com_seq;
 DROP SEQUENCE chat_seq;
 DROP SEQUENCE men_seq;
+DROP SEQUENCE exa_seq;
+DROP SEQUENCE pre_seq;
+DROP SEQUENCE res_seq;
 
 CREATE TABLE Rol(
     id_rol INT PRIMARY KEY,
@@ -54,20 +60,50 @@ CREATE TABLE Tema(
     fecha DATE NOT NULL,
     habilitado VARCHAR(1) NOT NULL
 );
-CREATE TABLE Respuesta(
-    id_respuesta INT PRIMARY KEY,
+CREATE TABLE Comentario(
+    id_comentario INT PRIMARY KEY,
     id_tema INT NOT NULL REFERENCES Tema(id_tema),
     id_usuario INT NOT NULL REFERENCES Usuario(id_usuario),
     texto VARCHAR(255) NOT NULL 
+);
+CREATE TABLE Examen(
+    id_examen INT PRIMARY KEY,
+    id_usuario INT REFERENCES Usuario(id_usuario),
+    nombre VARCHAR(32) UNIQUE NOT NULL,
+    fecha DATE NOT NULL
+);
+CREATE TABLE Pregunta(
+    id_pregunta INT PRIMARY KEY,
+    id_examen INT REFERENCES Examen(id_examen),
+    tipo VARCHAR(1) NOT NULL,
+    texto VARCHAR(255) NOT NULL
+);
+CREATE TABLE Respuesta(
+    id_respuesta INT PRIMARY KEY,
+    id_pregunta INT REFERENCES Pregunta(id_pregunta),
+    correcta VARCHAR(1) NOT NULL,
+    texto VARCHAR(255)
+);
+CREATE TABLE Sol_examen(
+    id_usuario INT,
+    id_examen INT,
+    fecha DATE NOT NULL,
+    nota INT NOT NULL,
+    PRIMARY KEY(id_usuario, id_examen),
+    FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY(id_examen) REFERENCES Examen(id_examen)
 );
 
 CREATE SEQUENCE rol_seq;
 CREATE SEQUENCE fac_seq;
 CREATE SEQUENCE car_seq;
 CREATE SEQUENCE tem_seq;
-CREATE SEQUENCE resp_seq;
+CREATE SEQUENCE com_seq;
 CREATE SEQUENCE chat_seq;
 CREATE SEQUENCE men_seq;
+CREATE SEQUENCE exa_seq;
+CREATE SEQUENCE pre_seq;
+CREATE SEQUENCE res_seq;
 
 
 INSERT INTO Rol(nombre, descripcion) VALUES ('admin','admin');
@@ -108,8 +144,8 @@ INSERT INTO Asignacion(id_usuario, id_carrera) VALUES (201602975,1);
 INSERT INTO Tema(id_usuario, titulo, contenido, fecha,habilitado) VALUES (1,'BIENVENIDO','Usted esta usando un sistema para contenidos educativos que lo disfrute :3',TRUNC(SYSDATE),'Y');
 INSERT INTO Tema(id_usuario, titulo, contenido, fecha,habilitado) VALUES (201612272,'Que hago?','qui uvas',TRUNC(SYSDATE),'Y');
 
-INSERT INTO Respuesta(id_tema, id_usuario,texto) VALUES (1,201612272,'Usted chinge su madre >:D');
-INSERT INTO Respuesta(id_tema, id_usuario,texto) VALUES (1,1,'Que abusivo! >:(');
+INSERT INTO Comentario(id_tema, id_usuario,texto) VALUES (1,201612272,'Usted chinge su madre >:D');
+INSERT INTO Comentario(id_tema, id_usuario,texto) VALUES (1,1,'Que abusivo! >:(');
 
 INSERT INTO Chat(id_usuario1, id_usuario2, habilitado) VALUES (1, 201612272, 'Y');
 INSERT INTO Chat(id_usuario1, id_usuario2, habilitado) VALUES (1, 201602975, 'Y');
@@ -121,6 +157,18 @@ INSERT INTO Mensaje(id_chat, id_usuario, fecha, texto) VALUES (2,201602975,SYSDA
 INSERT INTO Mensaje(id_chat, id_usuario, fecha, texto) VALUES (2,201612272,SYSDATE,'Hola ruth qué tal?');
 INSERT INTO Mensaje(id_chat, id_usuario, fecha, texto) VALUES (2,201612272,SYSDATE,'Hiciste la tarea de archivos?');
 INSERT INTO Mensaje(id_chat, id_usuario, fecha, texto) VALUES (3,1,SYSDATE,'Bienvenido a la sala de chat :3');
+
+INSERT INTO Examen(id_usuario, nombre, fecha) VALUES (333,'Prueba',SYSDATE);
+INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (1,'T','Iniciales del fundador de los scouts:');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (1,'Y','BP');
+INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (1,'O','Marca la A');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (2,'Y','A');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (2,'N','B');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (2,'N','C');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (2,'N','D');
+INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (1,'V','Eres Humano?');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (3,'Y','V');
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (3,'N','F');
 COMMIT;
 
 /*
@@ -164,13 +212,13 @@ BEGIN
   FROM   dual;
 END;
 
-CREATE OR REPLACE TRIGGER Resp_TRG
-BEFORE INSERT ON Respuesta
+CREATE OR REPLACE TRIGGER Com_TRG
+BEFORE INSERT ON Comentario
 FOR EACH ROW
-WHEN (new.id_respuesta IS NULL)
+WHEN (new.id_comentario IS NULL)
 BEGIN
-  SELECT resp_seq.NEXTVAL
-  INTO   :new.id_respuesta
+  SELECT com_seq.NEXTVAL
+  INTO   :new.id_comentario
   FROM   dual;
 END;
 
@@ -191,6 +239,36 @@ WHEN (new.id_mensaje IS NULL)
 BEGIN
   SELECT men_seq.NEXTVAL
   INTO   :new.id_mensaje
+  FROM   dual;
+END;
+
+CREATE OR REPLACE TRIGGER exa_TRG
+BEFORE INSERT ON Examen
+FOR EACH ROW
+WHEN (new.id_examen IS NULL)
+BEGIN
+  SELECT exa_seq.NEXTVAL
+  INTO   :new.id_examen
+  FROM   dual;
+END;
+
+CREATE OR REPLACE TRIGGER pre_TRG
+BEFORE INSERT ON Pregunta
+FOR EACH ROW
+WHEN (new.id_pregunta IS NULL)
+BEGIN
+  SELECT pre_seq.NEXTVAL
+  INTO   :new.id_pregunta
+  FROM   dual;
+END;
+
+CREATE OR REPLACE TRIGGER res_TRG
+BEFORE INSERT ON Respuesta
+FOR EACH ROW
+WHEN (new.id_respuesta IS NULL)
+BEGIN
+  SELECT res_seq.NEXTVAL
+  INTO   :new.id_respuesta
   FROM   dual;
 END;
 */

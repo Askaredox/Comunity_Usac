@@ -3,6 +3,7 @@ import { BehaviorSubject,Observable} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from '../objects/usuario';
 import { map} from 'rxjs/operators';
+import { url } from '../objects/ruta';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsuarioService {
   }
 
   login(id:number,password:string,rol:number):Observable<Usuario>{
-    return this.http.get<Usuario>('http://192.168.1.7:3000/api/usuario/'+id)
+    return this.http.get<Usuario>(url+'/api/usuario/'+id)
       .pipe(map(user => {
         if(user!=undefined){
           if(user.CONTRASENA==password && user.ID_ROL==rol){
@@ -35,7 +36,7 @@ export class UsuarioService {
       }));
   }
   getUser(id:number):Observable<Usuario>{
-    return this.http.get<Usuario>('http://192.168.1.7:3000/api/usuario/'+id);
+    return this.http.get<Usuario>(url+'/api/usuario/'+id);
   }
   asignar(id_usr:number,id_carrera:number){
     let new_asg={
@@ -43,14 +44,14 @@ export class UsuarioService {
       ID_CARRERA:id_carrera
     }
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
-    return this.http.post('http://192.168.1.7:3000/api/asignar',new_asg,{headers});
+    return this.http.post(url+'/api/asignar/',new_asg,{headers});
   }
   addUser(new_user:Usuario){
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
-    return this.http.post('http://192.168.1.7:3000/api/usuario',new_user,{headers});
+    return this.http.post(url+'/api/usuario',new_user,{headers});
   }
   getAllUsers():Observable<Usuario[]>{
-    return this.http.get<Usuario[]>('http://192.168.1.7:3000/api/usuario');
+    return this.http.get<Usuario[]>(url+'/api/usuario');
   }
   logout() {
     localStorage.removeItem('usr');

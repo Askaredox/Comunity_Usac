@@ -1,0 +1,50 @@
+<mat-card class="example-card" *ngFor="let exa of examenes| slice: lowValue : highValue ;let i=index">
+    <mat-card-header>
+        <div mat-card-avatar><mat-icon>work</mat-icon></div>
+        <mat-card-title>{{exa.NOMBRE}}</mat-card-title>
+        <mat-card-subtitle *ngIf="exa.FECHA!=undefined">{{exa.FECHA.substring(0,10)}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-content>
+        <mat-expansion-panel (opened)="pregunta(exa.ID_EXAMEN,i)">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Preguntas
+                </mat-panel-title>
+                <mat-panel-description>
+                    Todas las preguntas de examen...
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+        
+            <mat-list>
+                <mat-list-item *ngFor="let pregs of exa.PREGUNTAS">
+                    
+                    <!--mat-icon mat-list-icon>account_circle</mat-icon-->
+                    <h4 mat-line><b>{{pregs.TIPO}}</b></h4>
+                    <p mat-line><i>{{pregs.TEXTO}}</i></p>
+                    <mat-divider [inset]="true"></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+    </mat-card-content>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-actions>
+        
+    </mat-card-actions>
+    <mat-divider [inset]="true"></mat-divider>
+</mat-card>
+<mat-paginator style="width: 80%; margin:auto; margin-bottom: 20px" 
+    [length]="examenes.length" 
+    [pageSize]="pageSize" 
+    (page)="pageEvent = getPaginatorData($event)">
+</mat-paginator>
+<pre class="space"> 
+
+
+
+
+</pre>
+<button (click)="addPregunta()" mat-fab class="add">
+    <mat-icon>add</mat-icon>
+</button>

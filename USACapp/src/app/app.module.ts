@@ -25,6 +25,14 @@ import { TemaComponent, NewTemaComponent } from './tema/tema.component';
 import { SalaChatComponent } from './sala-chat/sala-chat.component';
 import { ChatearComponent } from './chatear/chatear.component';
 import { MensajeriaService } from './services/mensajeria.service';
+import { TeacherMainComponent } from './teacher-main/teacher-main.component';
+import { TopCatRComponent } from './top-cat-r/top-cat-r.component';
+import { TopEstRComponent } from './top-est-r/top-est-r.component';
+import { TopEstTComponent } from './top-est-t/top-est-t.component';
+import { TopCatTComponent } from './top-cat-t/top-cat-t.component';
+import { CreateExamComponent } from './create-exam/create-exam.component';
+import { TExamComponent,NewExamComponent } from './texam/texam.component';
+import { StExamComponent } from './st-exam/st-exam.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +52,16 @@ import { MensajeriaService } from './services/mensajeria.service';
     TemaComponent,
     NewTemaComponent,
     SalaChatComponent,
-    ChatearComponent
+    ChatearComponent,
+    TeacherMainComponent,
+    TopCatRComponent,
+    TopEstRComponent,
+    TopEstTComponent,
+    TopCatTComponent,
+    CreateExamComponent,
+    TExamComponent,
+    NewExamComponent,
+    StExamComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +76,8 @@ import { MensajeriaService } from './services/mensajeria.service';
     MaterialModule
   ],
   entryComponents:[
-    NewTemaComponent
+    NewTemaComponent,
+    NewExamComponent
   ],
   providers: [MensajeriaService],
   bootstrap: [AppComponent]

@@ -67,6 +67,10 @@ export class LoginComponent implements OnInit {
             this.saveInLocal(0,usr);
             this.router.navigate(['/student_main']);
           }
+          else if(usr.ID_ROL==3){
+            this.saveInLocal(0,usr);
+            this.router.navigate(['/teacher_main']);
+          }
         }
       });
   }

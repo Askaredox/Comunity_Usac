@@ -1,0 +1,11 @@
+<mat-nav-list style="text-align: center">
+    <h3>Crea un nuevo Examen</h3>
+    <mat-form-field>
+        <input matInput placeholder="Titulo" [(ngModel)]="nombre">
+    </mat-form-field>
+    <br/>
+    <div style="text-align: right">
+            <button style="margin: 10px" (click)="submit()" mat-raised-button color="primary">Crear!</button>
+            <button (click)="back()" mat-raised-button color="primary">Cancelar</button>
+    </div>
+</mat-nav-list>

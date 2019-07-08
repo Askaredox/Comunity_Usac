@@ -9,9 +9,11 @@ const carrera = require('../controllers/carrera.js');
 const carfacs = require('../controllers/carfac.js');
 const asignar = require('../controllers/asignar.js');
 const tema = require('../controllers/tema.js');
-const respuesta = require('../controllers/respuesta.js');
+const comentario = require('../controllers/comentario.js');
 const chat = require('../controllers/chat.js');
 const mensaje = require('../controllers/mensaje.js');
+const estadistica = require('../controllers/estadistica.js');
+const examen = require('../controllers/examen.js');
 /*********************** get / posts ***********************/
 
 
@@ -47,10 +49,10 @@ router.route('/tema/:id?')
     .get(tema.get)
     .post(tema.post);
 
-router.options('/respuesta',cors()); 
-router.route('/respuesta/:id?')
-    .get(respuesta.get)
-    .post(respuesta.post);
+router.options('/comentario',cors()); 
+router.route('/comentario/:id?')
+    .get(comentario.get)
+    .post(comentario.post);
 
 router.options('/chat',cors()); 
 router.route('/chat/:id?')
@@ -62,4 +64,14 @@ router.route('/mensajes/:id?')
     .get(mensaje.get)
     .post(mensaje.post);
 
+router.route('/estadistica/:id?')
+    .get(estadistica.get);
+
+router.options('/examen(/:tipo)?',cors()); 
+router.route('/examen/(:tipo)?(&:id)?')
+    .get(examen.get)
+    .post(examen.post);
+
+router.route('/exam/:nombre?')
+    .get(examen.gete)
 module.exports = router;

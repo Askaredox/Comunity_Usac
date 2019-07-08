@@ -30,7 +30,9 @@ export class ChatearComponent implements OnInit,AfterViewChecked {
   ngOnInit() {
     this.id_n=this.route.snapshot.params.id
     this.getFromLocal(0);
+
     if(this.data[0]==null){
+      console.log(this.data[0]);
       this.router.navigate(['/login']);
       return;
     }
@@ -58,7 +60,8 @@ export class ChatearComponent implements OnInit,AfterViewChecked {
           this.router.navigate(['/student_main/salaChat']);
       }
     },
-    err=>{});
+      err=>{}
+    );
     this.mensServ.initSocket(this.id_n,this.user.ID_USUARIO);
     this.mensServ.onEvent<any>(IOEventName.mensajes)
     .subscribe(

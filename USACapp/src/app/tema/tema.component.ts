@@ -12,8 +12,14 @@ import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-shee
   styleUrls: ['./tema.component.scss']
 })
 export class TemaComponent implements OnInit {
-  temas:Tema[];
+  temas:Tema[]=Array<Tema>();
   user:Usuario;
+
+  pageIndex:number = 0;
+  pageSize:number = 5;
+  lowValue:number = 0;
+  highValue:number = 5;
+
   constructor(
     private router: Router,
     private temaService:TemaService,
@@ -81,6 +87,22 @@ export class TemaComponent implements OnInit {
       }
     )
   }
+
+
+
+  
+  getPaginatorData(event){
+    if(event.pageIndex === this.pageIndex + 1){
+      this.lowValue = this.lowValue + this.pageSize;
+      this.highValue =  this.highValue + this.pageSize;
+      }
+    else if(event.pageIndex === this.pageIndex - 1){
+      this.lowValue = this.lowValue - this.pageSize;
+      this.highValue =  this.highValue - this.pageSize;
+    }   
+      this.pageIndex = event.pageIndex;
+  }
+
 
   public data:any=[]
   saveInLocal(key, val): void {

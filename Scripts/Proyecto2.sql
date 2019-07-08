@@ -36,8 +36,8 @@ CREATE TABLE Tema(
     fecha DATE NOT NULL,
     habilitado VARCHAR(1) NOT NULL
 );
-CREATE TABLE Respuesta(
-    id_respuesta INT PRIMARY KEY,
+CREATE TABLE Comentario(
+    id_comentario INT PRIMARY KEY,
     id_tema INT NOT NULL REFERENCES Tema(id_tema),
     id_usuario INT NOT NULL REFERENCES Usuario(id_usuario),
     texto VARCHAR(255) NOT NULL 
@@ -55,10 +55,28 @@ CREATE TABLE Mensaje(
     fecha DATE NOT NULL,
     texto VARCHAR(255) NOT NULL
 );
+CREATE TABLE Examen(
+    id_examen INT PRIMARY KEY,
+    id_usuario INT REFERENCES Usuario(id_usuario),
+    nombre VARCHAR(32) UNIQUE NOT NULL,
+    fecha DATE NOT NULL
+);
+CREATE TABLE Pregunta(
+    id_pregunta INT PRIMARY KEY,
+    id_examen INT REFERENCES Examen(id_examen),
+    tipo VARCHAR(1) NOT NULL,
+    texto VARCHAR(255) NOT NULL
+);
+CREATE TABLE Respuesta(
+    id_respuesta INT PRIMARY KEY,
+    id_pregunta INT REFERENCES Pregunta(id_pregunta),
+    correcta VARCHAR(1) NOT NULL,
+    texto VARCHAR(255)
+);
 
 
 /*SELECTS DE APOYO*/
-DROP TABLE Respuesta;
+DROP TABLE Comentario;
 DROP TABLE Tema;
 DROP TABLE Asignacion;
 DROP TABLE Carrera;
@@ -76,8 +94,7 @@ SELECT * FROM Facultad;--TODO DE USUARIO
 SELECT * FROM Carrera;--TODO DE USUARIO
 SELECT * FROM Asignacion;--TODO DE USUARIO
 SELECT * FROM Tema;--TODO DE USUARIO
-SELECT * FROM Respuesta;
-
+SELECT * FROM Comentario;--TODO DE USUARIO
 
 /****************************************************************************************************************************/
 --ADMINISTRACION ROL
@@ -112,9 +129,9 @@ ORDER BY u.id_usuario ASC;
 INSERT INTO Tema(id_usuario, titulo, contenido, fecha, habilitado) VALUES (:ID_USUARIO,:TITULO,:CONTENIDO,:FECHA,:HABILITADO);
 SELECT id_tema, nombre, titulo, contenido, fecha, habilitado FROM Usuario u , Tema t WHERE u.id_usuario=t.id_usuario ORDER BY id_tema DESC;
 
---ADMINISTRACION DE RESPUESTAS
-SELECT nombre, texto FROM Usuario u, Tema t, Respuesta r WHERE u.id_usuario = r.id_usuario AND r.id_tema=t.id_tema AND r.id_tema=1;
-INSERT INTO Respuesta(id_tema, id_usuario, texto) VALUES (:ID_TEMA,:ID_USUARIO,:TEXTO);
+--ADMINISTRACION DE COMENTARIOS
+SELECT nombre, texto FROM Usuario u, Tema t, Comentario c WHERE u.id_usuario = c.id_usuario AND c.id_tema=t.id_tema AND c.id_tema=1;
+INSERT INTO Comentario(id_tema, id_usuario, texto) VALUES (:ID_TEMA,:ID_USUARIO,:TEXTO);
 
 --ADMINISTRACION DE SALAS DE CHAT
 SELECT c.id_chat, u.id_usuario, u.nombre FROM 
@@ -125,3 +142,37 @@ Usuario u
 WHERE c.id_usuario=u.id_usuario
 AND c.id_usuario!=201612272;
 INSERT INTO Chat(id_usuario1, id_usuario2, habilitado) VALUES (:ID_USUARIO1, :ID_USUARIO2,:HABILITADO);
+
+--ADMINISTRACION DE MENSAJES POR SALA DE CHAT
+SELECT m.id_usuario, u.nombre, u.nombre, m.fecha, m.texto FROM Mensaje m, Usuario u WHERE m.id_usuario=u.id_usuario AND m.id_chat=2 ORDER BY id_mensaje ASC;
+INSERT INTO Mensaje(id_chat, id_usuario, fecha, texto) VALUES (:ID_CHAT,:ID_USUARIO,SYSDATE,:TEXTO);
+
+--ESTADISTICAS
+    --TOP COMENTARIOS CATEDRATICOS-ESTUDIANTES
+SELECT u.id_usuario, u.nombre, resp  FROM(
+    SELECT * FROM(
+        SELECT u.id_usuario, COUNT(u.id_usuario)as resp FROM Comentario c, Usuario u WHERE c.id_usuario = u.id_usuario AND u.id_rol=3 GROUP BY u.id_usuario
+    )
+    ORDER BY resp DESC
+    ) q, Usuario u
+WHERE ROWNUM <=3
+AND u.id_usuario=q.id_usuario;
+    
+    --TOP TEMAS CATEDRATICOS-ESTUDIANTES
+SELECT u.id_usuario, u.nombre, tema  FROM(
+    SELECT * FROM(
+        SELECT u.id_usuario,COUNT(u.id_usuario) as tema FROM Tema t, Usuario u WHERE t.id_usuario=u.id_usuario AND u.id_rol=2 GROUP BY u.id_usuario
+    )
+    ORDER BY tema DESC
+    ) q, Usuario u
+WHERE ROWNUM <=5
+AND u.id_usuario=q.id_usuario;
+
+INSERT INTO Examen(id_usuario, nombre, fecha) VALUES (:ID_USUARIO,:NOMBRE,SYSDATE) RETURNING id_examen INTO :tmp;
+INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (:ID_EXAMEN,:TIPO,:TEXTO) RETURNING id_examen INTO :tmp;
+INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (:ID_PREGUNTA,:CORRECTA,:TEXTO);
+SELECT * FROM Examen WHERE id_usuario=:ID_USUARIO;
+SELECT * FROM Pregunta WHERE id_examen=:ID_EXAMEN;
+SELECT * FROM Respuesta WHERE id_Pregunta=:ID_PREGUNTA;
+SELECT * FROM Examen WHERE nombre=:NOMBRE;
+

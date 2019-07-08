@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Mensaje } from '../objects/mensaje';
 import { Observable } from 'rxjs';
+import { url } from '../objects/ruta';
 
 export enum IOEventName{
   mensajes="mensajes"
@@ -11,12 +12,11 @@ export enum IOEventName{
   providedIn: 'root'
 })
 export class MensajeriaService {
-  private url = 'http://192.168.1.7:3000';
   private socket:io.Socket;
   
   constructor() {  }
   public initSocket(id_room:number,id_usr:number){
-    this.socket = io(this.url);
+    this.socket = io(url);
     this.socket.emit('joinRoom', id_room, id_usr)
   }
   public onEvent<T>(event:IOEventName):Observable<T[]>{

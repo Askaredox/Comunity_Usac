@@ -1,0 +1,12 @@
+<div>
+    <button [routerLink]="['tema']" mat-button color="primary">HOME</button>
+    <button [routerLink]="['TExam']" mat-button color="primary">EXAMENES</button>
+    <button [routerLink]="['salaChat']" mat-button color="primary">CHAT</button>
+    <button (click)="logout()" mat-button color="warn" style="position:absolute; right: 0px">Logout</button>
+    <mat-divider></mat-divider>
+</div>
+<p style="text-align: center">as {{user.NOMBRE}}</p>
+<router-outlet></router-outlet>
+
+
+

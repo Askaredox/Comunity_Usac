@@ -1,0 +1,21 @@
+.group {
+    display: flex;
+    flex-direction: column;
+}
+.check{
+    left: 30px;
+    margin-bottom: -5px;
+}
+.card{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.radio{
+    margin-right:20px;
+}
+.add{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

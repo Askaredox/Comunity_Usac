@@ -3,29 +3,29 @@ import { Tema } from '../objects/tema';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Respuesta } from '../objects/respuesta';
+import { url } from '../objects/ruta';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemaService {
-
   constructor(private http:HttpClient) { }
 
   addTema(new_tema){
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
-    return this.http.post('http://192.168.1.7:3000/api/tema',new_tema,{headers});
+    return this.http.post(url+'/api/tema',new_tema,{headers});
   }
   getAllTemas():Observable<Tema[]>{
-    return this.http.get<Tema[]>('http://192.168.1.7:3000/api/tema');
+    return this.http.get<Tema[]>(url+'/api/tema');
   }
   getTema(id:number):Observable<Tema>{
-    return this.http.get<Tema>('http://192.168.1.7:3000/api/tema/'+id);
+    return this.http.get<Tema>(url+'/api/tema/'+id);
   }
   getResps(id:number):Observable<Respuesta[]>{
-    return this.http.get<Respuesta[]>('http://192.168.1.7:3000/api/respuesta/'+id);
+    return this.http.get<Respuesta[]>(url+'/api/comentario/'+id);
   }
   addResp(new_resp){
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
-    return this.http.post('http://192.168.1.7:3000/api/respuesta',new_resp,{headers});
+    return this.http.post(url+'/api/comentario',new_resp,{headers});
   }
 }

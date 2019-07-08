@@ -1,13 +1,13 @@
-const respuestas = require('../db_apis/respuesta.js');
+const comentarios = require('../db_apis/comentario.js');
  
 function getRespFromRec(req) {
     
-    const Respuesta = {
+    const Comentario = {
         ID_TEMA: req.body.ID_TEMA,
         ID_USUARIO: req.body.ID_USUARIO,
         TEXTO: req.body.TEXTO
     };
-    return Respuesta;
+    return Comentario;
 }
 
 /******************************************************************************************/
@@ -19,7 +19,7 @@ async function get(req, res, next) {
     
         context.id = parseInt(req.params.id, 10);
     
-        const rows = await respuestas.find(context);
+        const rows = await comentarios.find(context);
         if (req.params.id) {
             if (rows.length === 1) {
                 res.status(200).json(rows[0]);
@@ -41,7 +41,7 @@ async function post(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         let resp = getRespFromRec(req);
         //console.log(req);
-        resp = await respuestas.create(resp);
+        resp = await comentarios.create(resp);
         res.status(201).json(resp);
     } catch (err) {
         next(err);

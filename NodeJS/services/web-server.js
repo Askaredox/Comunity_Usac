@@ -55,7 +55,7 @@ function initialize() {
                 todo(mensaj);
             })
             socket.on('leaveRoom',id_sala=>{
-                console.log("unio a sala_"+id_sala);
+                console.log("unio a sala_" + id_sala);
                 socket.join(id_sala);
             })
         })

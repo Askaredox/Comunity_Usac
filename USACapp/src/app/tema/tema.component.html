@@ -1,6 +1,6 @@
 <h2 style="text-align: center">TEMAS</h2>
 
-<mat-card class="example-card" *ngFor="let tema of temas">
+<mat-card class="example-card" *ngFor="let tema of temas | slice: lowValue : highValue">
     <mat-card-header>
         <div mat-card-avatar><mat-icon>android</mat-icon></div>
             
@@ -42,6 +42,17 @@
     </mat-card-actions>
     <mat-divider [inset]="true"></mat-divider>
 </mat-card>
+<mat-paginator style="width: 80%; margin:auto; margin-bottom: 20px" 
+    [length]="temas.length" 
+    [pageSize]="pageSize" 
+    (page)="pageEvent = getPaginatorData($event)">
+</mat-paginator>
+<pre class="space"> 
+
+
+
+    
+</pre>
 <button (click)="addTema()" mat-fab class="add">
     <mat-icon>edit</mat-icon>
 </button>

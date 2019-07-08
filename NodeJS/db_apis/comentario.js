@@ -3,15 +3,15 @@ const database = require('../services/database.js');
 const baseQuery = 
     `SELECT 
         u.nombre, 
-        r.texto 
+        c.texto 
     FROM 
         Usuario u, 
         Tema t, 
-        Respuesta r 
+        Comentario c 
     WHERE 
-        u.id_usuario = r.id_usuario 
+        u.id_usuario = c.id_usuario 
     AND 
-        r.id_tema = t.id_tema`
+        c.id_tema = t.id_tema`
 ;
 
 async function find(context) {
@@ -20,10 +20,9 @@ async function find(context) {
     
     if (context.id) {
         binds.id_tema = context.id;
-    
-        query += `\nAND r.id_tema = :id_tema`;
+        query += `\nAND c.id_tema = :id_tema`;
     }
-    query+=`\nORDER BY id_respuesta ASC`;
+    query+=`\nORDER BY id_comentario ASC`;
     const result = await database.simpleExecute(query, binds);
     
     return result.rows;
@@ -31,7 +30,7 @@ async function find(context) {
 }module.exports.find = find;
 
 const createSQL =
-    `INSERT INTO Respuesta(
+    `INSERT INTO Comentario(
         id_tema, 
         id_usuario, 
         texto

@@ -1,5 +1,6 @@
 <div>
-    <button mat-button color="primary" [matMenuTriggerFor]="admin">Administrar</button>
+    <button mat-stroked-button color="primary" [matMenuTriggerFor]="admin">Administrar</button>
+    <button mat-stroked-button color="primary" [matMenuTriggerFor]="estadistica">Estadisticas</button>
     <mat-menu #admin="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="usuarios">Usuarios</button>
         <button mat-menu-item [matMenuTriggerFor]="roles">Roles</button>
@@ -34,8 +35,14 @@
         <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
         <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
     </mat-menu>
+    <mat-menu #estadistica="matMenu">
+        <a [routerLink]="['TopCatRes']" mat-menu-item>TOP 3 Catedraticos (Respuestas)</a>
+        <a [routerLink]="['TopEstRes']" mat-menu-item>TOP 10 Estudiantes (Respuestas)</a>
+        <a [routerLink]="['TopCatTema']" mat-menu-item>TOP 5 Catedráticos (Tema)</a>
+        <a [routerLink]="['TopEstTema']" mat-menu-item>TOP 5 Estudiantes (Tema)</a>
+    </mat-menu>
 
-    <button (click)="logout()" mat-button color="warn">Logout</button>
+    <button (click)="logout()" mat-button color="warn" style="position:absolute; right: 0px">Logout</button>
     <mat-divider></mat-divider>
 </div>
 <p style="text-align: center">as {{user.NOMBRE}}</p>

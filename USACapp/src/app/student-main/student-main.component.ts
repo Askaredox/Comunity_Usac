@@ -2,8 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Usuario } from '../objects/usuario';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { TemaService } from '../services/tema.service';
 
 @Component({
   selector: 'app-student-main',
