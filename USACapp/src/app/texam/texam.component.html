@@ -52,6 +52,9 @@
                 </mat-list>
             </mat-expansion-panel>
     </mat-card-actions>
+    <mat-card-footer style="text-align: right">
+        Tiempo limite: {{exa.TIEMPO/60}} minutos, {{exa.TIEMPO%60}} segundos
+    </mat-card-footer>
     <mat-divider [inset]="true"></mat-divider>
 </mat-card>
 <mat-paginator style="width: 80%; margin:auto; margin-bottom: 20px" 

@@ -7,6 +7,7 @@ DROP TABLE Chat;
 DROP TABLE Respuesta;
 DROP TABLE Tema;
 DROP TABLE Asignacion;
+DROP TABLE Ciencia;
 DROP TABLE Carrera;
 DROP TABLE Facultad;
 DROP TABLE Usuario;
@@ -14,6 +15,7 @@ DROP TABLE Rol;
 DROP SEQUENCE rol_seq;
 DROP SEQUENCE fac_seq;
 DROP SEQUENCE car_seq;
+DROP SEQUENCE cie_seq;
 DROP SEQUENCE tem_seq;
 DROP SEQUENCE com_seq;
 DROP SEQUENCE chat_seq;
@@ -45,6 +47,11 @@ CREATE TABLE Carrera(
     nombre VARCHAR(32) NOT NULL,
     FOREIGN KEY(id_facultad) REFERENCES Facultad (id_facultad)
 );
+CREATE TABLE Ciencia(
+    id_ciencia INT PRIMARY KEY,
+    id_carrera INT REFERENCES Carrera(id_carrera),
+    nombre VARCHAR(64) NOT NULL
+);
 CREATE TABLE Asignacion(
     id_usuario INT,
     id_carrera INT,
@@ -70,7 +77,8 @@ CREATE TABLE Examen(
     id_examen INT PRIMARY KEY,
     id_usuario INT REFERENCES Usuario(id_usuario),
     nombre VARCHAR(32) UNIQUE NOT NULL,
-    fecha DATE NOT NULL
+    fecha DATE NOT NULL,
+    tiempo INT NOT NULL--AGREGADO 
 );
 CREATE TABLE Pregunta(
     id_pregunta INT PRIMARY KEY,
@@ -97,6 +105,7 @@ CREATE TABLE Sol_examen(
 CREATE SEQUENCE rol_seq;
 CREATE SEQUENCE fac_seq;
 CREATE SEQUENCE car_seq;
+CREATE SEQUENCE cie_seq;
 CREATE SEQUENCE tem_seq;
 CREATE SEQUENCE com_seq;
 CREATE SEQUENCE chat_seq;
@@ -199,6 +208,16 @@ WHEN (new.id_carrera IS NULL)
 BEGIN
   SELECT car_seq.NEXTVAL
   INTO   :new.id_carrera
+  FROM   dual;
+END;
+
+CREATE OR REPLACE TRIGGER Cie_TRG
+BEFORE INSERT ON Ciencia 
+FOR EACH ROW
+WHEN (new.id_ciencia IS NULL)
+BEGIN
+  SELECT cie_seq.NEXTVAL
+  INTO   :new.id_ciencia
   FROM   dual;
 END;
 

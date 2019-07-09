@@ -10,3 +10,19 @@
     border-radius: 11px 80px 11px 11px;
     border: 2px dotted #030063;
 }
+.tiempo{
+    position:fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 80px;
+    font-family: 'digital-clock-font';
+    font-size: 200%;
+    text-align: right;
+    background-color: black;
+    color: red;
+    height: 25px;
+}
+@font-face{
+    font-family:'digital-clock-font';
+    src: url('../../assets/digital-7.mono.ttf');
+}

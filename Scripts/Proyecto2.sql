@@ -21,6 +21,11 @@ CREATE TABLE Carrera(
     nombre VARCHAR(32) NOT NULL,
     FOREIGN KEY(id_facultad) REFERENCES Facultad (id_facultad)
 );
+CREATE TABLE Ciencia(
+    id_ciencia INT PRIMARY KEY,
+    id_carrera INT REFERENCES Carrera(id_carrera),
+    nombre VARCHAR(64) NOT NULL
+);
 CREATE TABLE Asignacion(
     id_usuario INT,
     id_carrera INT,
@@ -59,7 +64,8 @@ CREATE TABLE Examen(
     id_examen INT PRIMARY KEY,
     id_usuario INT REFERENCES Usuario(id_usuario),
     nombre VARCHAR(32) UNIQUE NOT NULL,
-    fecha DATE NOT NULL
+    fecha DATE NOT NULL,
+    tiempo INT NOT NULL--AGREGADO 
 );
 CREATE TABLE Pregunta(
     id_pregunta INT PRIMARY KEY,
@@ -73,7 +79,15 @@ CREATE TABLE Respuesta(
     correcta VARCHAR(1) NOT NULL,
     texto VARCHAR(255)
 );
-
+CREATE TABLE Sol_examen(
+    id_usuario INT,
+    id_examen INT,
+    fecha DATE NOT NULL,
+    nota INT NOT NULL,
+    PRIMARY KEY(id_usuario, id_examen),
+    FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY(id_examen) REFERENCES Examen(id_examen)
+);
 
 /*SELECTS DE APOYO*/
 DROP TABLE Comentario;
@@ -95,6 +109,7 @@ SELECT * FROM Carrera;--TODO DE USUARIO
 SELECT * FROM Asignacion;--TODO DE USUARIO
 SELECT * FROM Tema;--TODO DE USUARIO
 SELECT * FROM Comentario;--TODO DE USUARIO
+
 
 /****************************************************************************************************************************/
 --ADMINISTRACION ROL
@@ -168,6 +183,7 @@ SELECT u.id_usuario, u.nombre, tema  FROM(
 WHERE ROWNUM <=5
 AND u.id_usuario=q.id_usuario;
 
+--ADMINISTRACION DE EXAMENES Y NOTAS
 INSERT INTO Examen(id_usuario, nombre, fecha) VALUES (:ID_USUARIO,:NOMBRE,SYSDATE) RETURNING id_examen INTO :tmp;
 INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (:ID_EXAMEN,:TIPO,:TEXTO) RETURNING id_examen INTO :tmp;
 INSERT INTO Respuesta(id_pregunta, correcta, texto) VALUES (:ID_PREGUNTA,:CORRECTA,:TEXTO);
@@ -176,3 +192,6 @@ SELECT * FROM Pregunta WHERE id_examen=:ID_EXAMEN;
 SELECT * FROM Respuesta WHERE id_Pregunta=:ID_PREGUNTA;
 SELECT * FROM Examen WHERE nombre=:NOMBRE;
 
+INSERT INTO Sol_examen(id_usuario, id_examen, fecha, nota) VALUES (:ID_USUARIO, :ID_EXAMEN, SYSDATE, :NOTA);
+SELECT e.nombre, s.fecha, s.nota FROM Sol_examen s,Examen e,Usuario u WHERE s.id_examen = e.id_examen AND s.id_usuario=u.id_usuario AND u.id_usuario=201612272;
+SELECT u.nombre, u.id_usuario, s.nota, s.fecha FROM Sol_examen s, Usuario u WHERE u.id_usuario = s.id_usuario AND s.id_examen=2;

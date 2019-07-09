@@ -26,6 +26,10 @@ export class DoExamComponent implements OnInit {
   id_exam:number;
   user:Usuario;
   preguntas:Pregunta[]=new Array<Pregunta>();
+  timeLeft:number=0;
+  timeM:number=0;
+  timeS:number=0;
+  interval;
   constructor(
     private route: ActivatedRoute,
     private router:Router,
@@ -48,6 +52,16 @@ export class DoExamComponent implements OnInit {
         return;
       }
     }
+
+    this.examServ.getExamI(this.id_exam)
+    .subscribe(val=>{
+      this.timeLeft=val.TIEMPO;
+      this.timeM = this.timeLeft/60-.5;
+      this.timeS = this.timeLeft%60;
+      alert("cuenta con "+this.timeM.toFixed(0)+":"+('0'+this.timeS).slice(-2)+" minutos para hacer el examen");
+    })
+    this.startTimer();
+
     this.getPreguntas();
   }
   getPreguntas(){
@@ -75,18 +89,32 @@ export class DoExamComponent implements OnInit {
     });
     total=(correctas/this.preguntas.length)*100;
     
-    alert("Su nota fue de: "+total.toFixed(2));
+    
     let nota={
       ID_USUARIO:this.user.ID_USUARIO,
       ID_EXAMEN:this.id_exam,
       NOTA:total
     }
     this.examServ.setNota(nota)
-    .subscribe(v=>{console.log(v);},
-      error=>{console.log(error);});
-    this.router.navigate(['student_main/StExam']);
+    .subscribe(v=>{
+      alert("Su nota fue de: "+total.toFixed(2));
+      this.router.navigate(['student_main/StExam']);
+    },
+      error=>{console.log(error);this.router.navigate(['student_main/StExam']);});
   }
-
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+        this.timeM = this.timeLeft/60-.5;
+        this.timeS = this.timeLeft%60;
+        
+      } else {
+        clearInterval(this.interval);
+        this.show();
+      }
+    },1000)
+  }
 
 
   public data:any=[]

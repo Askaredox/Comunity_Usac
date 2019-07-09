@@ -9,7 +9,8 @@ function getExamFromRec(req) {
         tmp:{
             dir:oracledb.BIND_OUT,
             type:oracledb.NUMBER
-        }
+        },
+        TIEMPO: req.body.TIEMPO
     };
     return Examen;
 }
@@ -135,3 +136,18 @@ async function poste(req, res, next) {
         next(err);
     }
 }module.exports.poste = poste;
+
+async function gets(req, res, next) {
+    try {
+        res.header("Access-Control-Allow-Origin", "*");
+        const context = {};
+    
+        context.id = parseInt(req.params.id, 10);
+        const rows = await examens.find(context);
+    
+        res.status(200).json(rows[0]);
+        
+    } catch (err) {
+        next(err);
+    }
+}module.exports.gets = gets;

@@ -6,6 +6,7 @@ const usuario = require('../controllers/usuario.js');
 const rol = require('../controllers/rol.js');
 const facultad = require('../controllers/facultad.js');
 const carrera = require('../controllers/carrera.js');
+const ciencia = require('../controllers/ciencia.js');
 const carfacs = require('../controllers/carfac.js');
 const asignar = require('../controllers/asignar.js');
 const tema = require('../controllers/tema.js');
@@ -37,6 +38,11 @@ router.options('/carrera',cors());
 router.route('/carrera/:id?')
     .get(carrera.get)
     .post(carrera.post);
+
+router.options('/ciencia',cors()); 
+router.route('/ciencia/:id?')
+    .get(ciencia.get)
+    .post(ciencia.post);
 
 router.route('/carfacs/:id?')
     .get(carfacs.get);
@@ -81,5 +87,8 @@ router.route('/exam/:nombre?')
 router.options('/nota',cors()); 
 router.route('/nota/(:tipo)?(&:id)?')
     .get(nota.get)
+
+router.route('/exame/:id?')
+    .get(examen.gets);
 
 module.exports = router;

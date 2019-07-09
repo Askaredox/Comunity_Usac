@@ -21,6 +21,9 @@ export interface Pregunta{
 })
 export class CreateExamComponent implements OnInit {
   id_usr:number;
+  timem:number=1;
+  times:number=0;
+  
   name:string;
   preg:number;
   texto:string;
@@ -98,7 +101,8 @@ export class CreateExamComponent implements OnInit {
         let p={
           ID_EXAMEN:num,
           TIPO:pregunta.TIPO=='Texto'?"T":(pregunta.TIPO=='V|F'?'V':'O'),
-          TEXTO:pregunta.TEXTO
+          TEXTO:pregunta.TEXTO,
+          TIEMPO:(this.timem*60+this.times)
         }
         console.log('3:'+p)
         this.examServ.addPreg(p)

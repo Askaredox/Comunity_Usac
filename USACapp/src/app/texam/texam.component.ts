@@ -10,6 +10,7 @@ export interface Examen{
   ID_USUARIO:string;
   NOMBRE:string;
   FECHA:string;
+  TIEMPO:number;
   PREGUNTAS:Pregunta[];
   ESTUDIANTES:Estudiante[];
 }
@@ -92,9 +93,7 @@ export class TExamComponent implements OnInit {
     )
   }
 
-
   pregunta(exam:number,i:number){
-
     this.examServ.getPreg(exam)
     .subscribe(
       data=>{
@@ -130,7 +129,6 @@ export class TExamComponent implements OnInit {
         this.router.navigate(['teacher_main/createExam',sd.ID_USUARIO,sd.NOMBRE]);
       }
     )
-
   }
 
   getPaginatorData(event){
