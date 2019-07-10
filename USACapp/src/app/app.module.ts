@@ -36,6 +36,7 @@ import { StExamComponent } from './st-exam/st-exam.component';
 import { DoExamComponent } from './do-exam/do-exam.component';
 import { CienciaCComponent } from './ciencia-c/ciencia-c.component';
 import { CienciaRComponent } from './ciencia-r/ciencia-r.component';
+import { TopCieRComponent } from './top-cie-r/top-cie-r.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CienciaRComponent } from './ciencia-r/ciencia-r.component';
     StExamComponent,
     DoExamComponent,
     CienciaCComponent,
-    CienciaRComponent
+    CienciaRComponent,
+    TopCieRComponent
   ],
   imports: [
     BrowserModule,

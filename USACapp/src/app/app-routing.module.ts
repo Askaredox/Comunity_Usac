@@ -25,6 +25,7 @@ import { StExamComponent } from './st-exam/st-exam.component';
 import { DoExamComponent } from './do-exam/do-exam.component';
 import { CienciaCComponent } from './ciencia-c/ciencia-c.component';
 import { CienciaRComponent } from './ciencia-r/ciencia-r.component';
+import { TopCieRComponent } from './top-cie-r/top-cie-r.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'TopEstRes', component: TopEstRComponent},
       { path: 'TopCatTema', component: TopCatTComponent},
       { path: 'TopEstTema', component: TopEstTComponent},
+      { path: 'TopCieRes', component: TopCieRComponent},
     ]
   },
   { path: 'student_main', component: StudentMainComponent,

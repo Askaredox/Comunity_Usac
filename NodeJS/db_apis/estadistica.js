@@ -115,6 +115,36 @@ const topCT =
     AND 
         u.id_usuario = q.id_usuario`
 ;
+const topCC=
+    `SELECT * FROM (
+        (
+            SELECT 
+                c.nombre,
+                q.comentario 
+            FROM 
+                (
+                    SELECT 
+                        t.id_tema, 
+                        COUNT(t.id_tema) AS comentario 
+                    FROM 
+                        Tema t, 
+                        Comentario c 
+                    WHERE 
+                        t.id_tema = c.id_tema 
+                    GROUP BY 
+                        t.id_tema
+                ) q, 
+                Tema_Ciencia tc, 
+                Ciencia c
+            WHERE 
+                q.id_tema = tc.id_tema
+            AND 
+                c.id_ciencia = tc.id_ciencia
+        )
+        ORDER BY q.comentario DESC
+    )
+    WHERE ROWNUM <=3`
+;
 async function find(context) {
     let query;
 
@@ -130,6 +160,9 @@ async function find(context) {
             break;
         case 4:
             query = topET;
+            break;
+        case 5:
+            query = topCC;
             break;
     }
     const binds = {};
