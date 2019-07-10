@@ -199,6 +199,16 @@ SELECT u.id_usuario, u.nombre, tema  FROM(
 WHERE ROWNUM <=5
 AND u.id_usuario=q.id_usuario;
 
+    --TOP COMENTARIOS CIENCIA
+SELECT * FROM(
+(SELECT c.nombre,q.comentario FROM(
+SELECT t.id_tema, COUNT(t.id_tema) AS comentario FROM Tema t, Comentario c WHERE t.id_tema=c.id_tema GROUP BY t.id_tema
+) q, Tema_Ciencia tc, Ciencia c
+WHERE q.id_tema=tc.id_tema
+AND c.id_ciencia=tc.id_ciencia
+)ORDER BY q.comentario DESC
+)WHERE ROWNUM <=3;
+
 --ADMINISTRACION DE EXAMENES Y NOTAS
 INSERT INTO Examen(id_usuario, nombre, fecha) VALUES (:ID_USUARIO,:NOMBRE,SYSDATE) RETURNING id_examen INTO :tmp;
 INSERT INTO Pregunta(id_examen, tipo, texto) VALUES (:ID_EXAMEN,:TIPO,:TEXTO) RETURNING id_examen INTO :tmp;
