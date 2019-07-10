@@ -56,6 +56,13 @@ export class TemaComponent implements OnInit {
           },
           err=>{
             console.log(err);
+          });
+          this.temaService.getCiencias(dato.ID_TEMA)
+          .subscribe(temcie=>{
+            dato.CIENCIAS="";
+            for(var i=0;i<temcie.length;i++){
+              dato.CIENCIAS+=temcie[i].CIENCIA+",\n"
+            }
           })
         });
       },
@@ -114,21 +121,64 @@ export class TemaComponent implements OnInit {
   }
 }
 
+export interface Facultad{
+  ID_FACULTAD:number;
+  NOMBRE:string;
+  CARRERAS:Carrera[];
+}
+export interface Carrera{
+  ID_CARRERA:number;
+  NOMBRE:string;
+  CIENCIAS:Ciencia[];
+}
+export interface Ciencia{
+  ID_CIENCIA:number;
+  NOMBRE:string;
+}
 
 @Component({
   selector: 'new-tema',
   templateUrl: 'new-tema.component.html',
 })
-export class NewTemaComponent {
+export class NewTemaComponent implements OnInit{
   titulo:string;
   contenido:string;
   user:Usuario;
+  facultades:Facultad[];
+  facu:Facultad;
+  ciencias:Ciencia[]=[];
+  cien;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<NewTemaComponent>,
     private temService:TemaService,
     @Inject(LOCAL_STORAGE) private storage: WebStorageService
   ) {}
-
+  ngOnInit(){
+    this.temService.getF().subscribe(
+      facs=>{
+        this.facultades=facs;
+        this.facultades.forEach(fac=>{
+          fac.CARRERAS=[];
+          this.temService.getCa(fac.ID_FACULTAD).subscribe(
+            cars=>{
+              fac.CARRERAS=cars;
+              fac.CARRERAS.forEach(car=>{
+                car.CIENCIAS=[];
+                this.temService.getCi(car.ID_CARRERA).subscribe(
+                  cies=>{
+                    car.CIENCIAS=cies;
+                  }
+                );
+              });
+            }
+          );
+        });
+      }
+    );
+  }
+  agregar(){
+    this.ciencias.push(this.cien);
+  }
   submit(){
     if(this.titulo==undefined || this.titulo==""){
       alert("Coloque un titulo");
@@ -148,7 +198,18 @@ export class NewTemaComponent {
     };
     this.temService.addTema(new_tem)
     .subscribe(
-      va=>{},
+      va=>{
+        this.ciencias.forEach(cien=>{
+          let temcie={
+            ID_TEMA:va.tmp,
+            ID_CIENCIA:cien.ID_CIENCIA
+          }
+          console.log(temcie);
+          this.temService.addCiencias(temcie).subscribe(
+            val=>{}
+          );
+        })
+      },
       error=>{console.log(error);}
     );
     this._bottomSheetRef.dismiss();

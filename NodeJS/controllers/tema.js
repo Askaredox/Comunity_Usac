@@ -1,4 +1,5 @@
 const temas = require('../db_apis/tema.js');
+const oracledb = require('oracledb');
  
 function getTemaFromRec(req) {
     
@@ -6,7 +7,11 @@ function getTemaFromRec(req) {
         ID_USUARIO: req.body.ID_USUARIO,
         TITULO: req.body.TITULO,
         CONTENIDO: req.body.CONTENIDO,
-        HABILITADO: req.body.HABILITADO
+        HABILITADO: req.body.HABILITADO,
+        tmp:{
+            dir:oracledb.BIND_OUT,
+            type:oracledb.NUMBER
+        }
     };
     return Tema;
 }

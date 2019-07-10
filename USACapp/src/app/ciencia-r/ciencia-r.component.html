@@ -1,0 +1,11 @@
+<h2 style="text-align: center">CIENCIAS</h2>
+<mat-list>
+    <mat-list-item *ngFor="let cie of ciencias">
+        <mat-icon mat-list-icon>grade</mat-icon>
+        <h2 mat-line><b>{{cie.CIENCIA}}</b></h2>
+        <p mat-line> {{cie.CARRERA}} [<i>{{cie.FACULTAD}}</i>] </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>
+
+

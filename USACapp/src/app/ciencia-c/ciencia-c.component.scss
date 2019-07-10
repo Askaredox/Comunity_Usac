@@ -1,0 +1,18 @@
+.T{
+    width: 80%;
+}
+.example-button-row button,
+.example-button-row a {
+    margin-right: 8px;
+}
+.example-container {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+}
+  
+.example-container > * {
+    width: 100%;
+    text-align: center;
+}

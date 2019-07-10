@@ -1,0 +1,23 @@
+<h2 style="text-align: center">CREAR CIENCIA</h2>
+<div class="example-container">
+    <div>
+        <mat-form-field class="T">
+            <input matInput [(ngModel)]="nombre" type="text" placeholder="Nombre" >
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <mat-form-field class="T">
+            <mat-label>Seleccione una carrera</mat-label>
+            <mat-select [(value)]="id_carrera">
+                <mat-option *ngFor="let car of carreras" value="{{car.ID_CARRERA}}">{{car.NOMBRE}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <br/>
+    <div class="example-button-row">
+        <button (click)="onSubmit()" mat-raised-button color="primary">Ingresar Ciencia</button>
+    </div>
+
+</div>

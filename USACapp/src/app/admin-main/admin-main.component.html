@@ -1,4 +1,5 @@
 <div>
+    <a [routerLink]="['tema']" mat-stroked-button color="primary" >Home</a>
     <button mat-stroked-button color="primary" [matMenuTriggerFor]="admin">Administrar</button>
     <button mat-stroked-button color="primary" [matMenuTriggerFor]="estadistica">Estadisticas</button>
     <mat-menu #admin="matMenu">
@@ -6,6 +7,7 @@
         <button mat-menu-item [matMenuTriggerFor]="roles">Roles</button>
         <button mat-menu-item [matMenuTriggerFor]="facultades">Facultades</button>
         <button mat-menu-item [matMenuTriggerFor]="carreras">Carreras</button>
+        <button mat-menu-item [matMenuTriggerFor]="ciencias">Ciencia</button>
     </mat-menu>
 
     <mat-menu #usuarios="matMenu">
@@ -35,6 +37,15 @@
         <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
         <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
     </mat-menu>
+
+    <mat-menu #ciencias="matMenu">
+        <a [routerLink]="['cienciaC']" mat-menu-item>Crear Ciencia</a>
+        <a [routerLink]="['cienciaR']" mat-menu-item>Leer</a>
+        <a [routerLink]="['componentB']" mat-menu-item>Actualizar*</a>
+        <a [routerLink]="['componentB']" mat-menu-item>Eliminar*</a>
+    </mat-menu>
+
+
     <mat-menu #estadistica="matMenu">
         <a [routerLink]="['TopCatRes']" mat-menu-item>TOP 3 Catedraticos (Respuestas)</a>
         <a [routerLink]="['TopEstRes']" mat-menu-item>TOP 10 Estudiantes (Respuestas)</a>

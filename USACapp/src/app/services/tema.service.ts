@@ -11,7 +11,7 @@ import { url } from '../objects/ruta';
 export class TemaService {
   constructor(private http:HttpClient) { }
 
-  addTema(new_tema){
+  addTema(new_tema):Observable<any>{
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
     return this.http.post(url+'/api/tema',new_tema,{headers});
   }
@@ -27,5 +27,21 @@ export class TemaService {
   addResp(new_resp){
     let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
     return this.http.post(url+'/api/comentario',new_resp,{headers});
+  }
+  getCiencias(id_tema:number):Observable<any[]>{
+    return this.http.get<any[]>(url+'/api/temcie/'+id_tema);
+  }
+  addCiencias(temcie):Observable<any>{
+    let headers= new HttpHeaders().set( "Content-Type" , "application/json" );
+    return this.http.post(url+'/api/temcie',temcie,{headers});
+  }
+  getF(){
+    return this.http.get<any[]>(url+'/api/FCC/F');
+  }
+  getCa(id:number){
+    return this.http.get<any[]>(url+'/api/FCC/A&'+id);
+  }
+  getCi(id:number){
+    return this.http.get<any[]>(url+'/api/FCC/I&'+id);
   }
 }

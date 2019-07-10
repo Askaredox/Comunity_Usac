@@ -128,6 +128,10 @@ INSERT INTO Facultad(nombre, descripcion) VALUES (:NOMBRE, :DESCRIPCION);
 SELECT id_carrera, id_facultad, nombre FROM Carrera;
 INSERT INTO Carrera(id_facultad, nombre) VALUES(:ID_FACULTAD, :NOMBRE);
 
+--ADMINISTRACION DE CIENCIA
+SELECT ci.nombre AS ciencia, ca.nombre AS carrera, F.nombre AS facultad FROM Ciencia ci, Carrera ca, Facultad f WHERE ci.id_carrera=ca.id_carrera AND ca.id_facultad=f.id_facultad;
+INSERT INTO Ciencia(id_ciencia, nombre) VALUES(:ID_CIENCIA, :NOMBRE);
+
 --OBTENER FACULTAD Y CARRERA
 SELECT c.nombre AS "CARRERA", f.nombre AS "FACULTAD" FROM Facultad f, Carrera c WHERE f.id_facultad=c.id_facultad;
 
@@ -147,6 +151,18 @@ SELECT id_tema, nombre, titulo, contenido, fecha, habilitado FROM Usuario u , Te
 --ADMINISTRACION DE COMENTARIOS
 SELECT nombre, texto FROM Usuario u, Tema t, Comentario c WHERE u.id_usuario = c.id_usuario AND c.id_tema=t.id_tema AND c.id_tema=1;
 INSERT INTO Comentario(id_tema, id_usuario, texto) VALUES (:ID_TEMA,:ID_USUARIO,:TEXTO);
+
+--ADMINISTRACION TEMA/CIENCIA
+INSERT INTO Tema_Ciencia(id_tema, id_ciencia) VALUES (:ID_TEMA, :ID_CIENCIA);
+SELECT c.nombre AS "CIENCIA" 
+FROM Tema t, Tema_Ciencia tc, Ciencia c
+WHERE t.id_tema = tc.id_tema
+AND c.id_ciencia = tc.id_ciencia
+AND t.id_tema =1;
+
+SELECT id_facultad, nombre FROM Facultad;
+SELECT id_carrera, nombre FROM Carrera WHERE id_facultad=:id_facultad;
+SELECT id_ciencia, nombre FROM Ciencia WHERE id_carrera=:id_carrera;
 
 --ADMINISTRACION DE SALAS DE CHAT
 SELECT c.id_chat, u.id_usuario, u.nombre FROM 

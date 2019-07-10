@@ -23,6 +23,8 @@ import { CreateExamComponent } from './create-exam/create-exam.component';
 import { TExamComponent } from './texam/texam.component';
 import { StExamComponent } from './st-exam/st-exam.component';
 import { DoExamComponent } from './do-exam/do-exam.component';
+import { CienciaCComponent } from './ciencia-c/ciencia-c.component';
+import { CienciaRComponent } from './ciencia-r/ciencia-r.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,6 +32,7 @@ const routes: Routes = [
   { path: 'admin_main', component: AdminMainComponent, 
     children:[
       { path: '', component: TemaComponent },
+      { path: 'tema', component: TemaComponent }, 
       { path: 'userC', component: UserCComponent},
       { path: 'userR', component: UserRComponent},
       { path: 'rolC', component: RolCComponent},
@@ -38,6 +41,8 @@ const routes: Routes = [
       { path: 'facultadR', component: FacultadRComponent},
       { path: 'carreraC', component: CarreraCComponent},
       { path: 'carreraR', component: CarreraRComponent},
+      { path: 'cienciaC', component: CienciaCComponent},
+      { path: 'cienciaR', component: CienciaRComponent},
       { path: 'TopCatRes', component: TopCatRComponent},
       { path: 'TopEstRes', component: TopEstRComponent},
       { path: 'TopCatTema', component: TopCatTComponent},

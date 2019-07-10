@@ -44,7 +44,7 @@ const createSQL =
         :CONTENIDO,
         SYSDATE,
         :HABILITADO
-    )`
+    ) RETURNING id_tema INTO :tmp`
 ;
 
 async function create(emp) {
@@ -52,7 +52,7 @@ async function create(emp) {
     //console.log(emp);
     console.log(tema);
     const result = await database.simpleExecute(createSQL, tema);
-    
+    tema.tmp=result.outBinds.tmp[0];
     return tema;
 
 }module.exports.create = create;

@@ -34,6 +34,8 @@ import { CreateExamComponent } from './create-exam/create-exam.component';
 import { TExamComponent,NewExamComponent } from './texam/texam.component';
 import { StExamComponent } from './st-exam/st-exam.component';
 import { DoExamComponent } from './do-exam/do-exam.component';
+import { CienciaCComponent } from './ciencia-c/ciencia-c.component';
+import { CienciaRComponent } from './ciencia-r/ciencia-r.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { DoExamComponent } from './do-exam/do-exam.component';
     TExamComponent,
     NewExamComponent,
     StExamComponent,
-    DoExamComponent
+    DoExamComponent,
+    CienciaCComponent,
+    CienciaRComponent
   ],
   imports: [
     BrowserModule,

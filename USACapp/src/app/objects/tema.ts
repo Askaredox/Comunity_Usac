@@ -9,4 +9,5 @@ export class Tema {
     HABILITADO:string;
     RESPS:Respuesta[];
     TEXTO:string;
+    CIENCIAS:string;
 }

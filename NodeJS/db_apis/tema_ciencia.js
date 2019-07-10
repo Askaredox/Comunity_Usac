@@ -1,10 +1,10 @@
 const database = require('../services/database.js');
  
 const baseQuery = 
-    `SELECT ci.nombre AS ciencia, ca.nombre AS carrera, F.nombre AS facultad 
-    FROM Ciencia ci, Carrera ca, Facultad f 
-    WHERE ci.id_carrera=ca.id_carrera 
-    AND ca.id_facultad=f.id_facultad`
+    `SELECT c.nombre AS "CIENCIA" 
+    FROM Tema t, Tema_Ciencia tc, Ciencia c
+    WHERE t.id_tema = tc.id_tema
+    AND c.id_ciencia = tc.id_ciencia`
 ;
  
 async function find(context) {
@@ -12,9 +12,9 @@ async function find(context) {
     const binds = {};
     
     if (context.id) {
-        binds.id_ciencia = context.id;
+        binds.id_tema = context.id;
     
-        query += `\nAND ci.id_ciencia = :id_ciencia`;
+        query += `\nAND t.id_tema =:id_tema`;
     }
     
     const result = await database.simpleExecute(query, binds);
@@ -23,8 +23,8 @@ async function find(context) {
 }module.exports.find = find;
 
 const createSQL =
-    `INSERT INTO Ciencia(id_carrera, nombre) 
-    VALUES(:ID_CARRERA, :NOMBRE)`
+    `INSERT INTO Tema_Ciencia(id_tema, id_ciencia) 
+    VALUES (:ID_TEMA, :ID_CIENCIA)`
 ;
 
 async function create(emp) {

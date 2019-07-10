@@ -7,6 +7,31 @@
     <mat-form-field>
         <textarea matInput placeholder="Contenido" [(ngModel)]="contenido"></textarea>
     </mat-form-field>
+    <div>
+        <mat-form-field>
+            <mat-label>FACULTAD</mat-label>
+            <mat-select [(value)]="facu">
+                <mat-option *ngFor="let fac of facultades" [value]="fac">
+                    {{fac.NOMBRE}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="facu!=undefined">
+            <mat-label>{{facu.NOMBRE}}</mat-label>
+            <mat-select [(value)]="cien">
+                <mat-optgroup *ngFor="let car of facu.CARRERAS" [label]="car.NOMBRE">
+                    <mat-option *ngFor="let cie of car.CIENCIAS" [value]="cie">
+                        {{cie.NOMBRE}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+        </mat-form-field>
+        <button style="margin: 10px" (click)="agregar()" mat-raised-button color="primary">Agregar</button>
+    </div>
+    <div style="width: 90%;margin:auto;" *ngFor="let cie of ciencias">
+            <p style="color:rgba(0, 0, 0, 0.4)"><i>{{cie.NOMBRE}}</i></p>
+    </div>
     <div style="text-align: right">
             <button style="margin: 10px" (click)="submit()" mat-raised-button color="primary">Publicar!</button>
             <button (click)="back()" mat-raised-button color="primary">Cancelar</button>

@@ -4,7 +4,8 @@ DROP TABLE Pregunta;
 DROP TABLE Examen;
 DROP TABLE Mensaje;
 DROP TABLE Chat;
-DROP TABLE Respuesta;
+DROP TABLE Tema_Ciencia;
+DROP TABLE Comentario;
 DROP TABLE Tema;
 DROP TABLE Asignacion;
 DROP TABLE Ciencia;
@@ -72,6 +73,13 @@ CREATE TABLE Comentario(
     id_tema INT NOT NULL REFERENCES Tema(id_tema),
     id_usuario INT NOT NULL REFERENCES Usuario(id_usuario),
     texto VARCHAR(255) NOT NULL 
+);
+CREATE TABLE Tema_Ciencia(
+    id_tema INT,
+    id_ciencia INT,
+    PRIMARY KEY(id_tema, id_ciencia),
+    FOREIGN KEY(id_tema) REFERENCES Tema(id_tema),
+    FOREIGN KEY(id_ciencia) REFERENCES Ciencia(id_ciencia)
 );
 CREATE TABLE Examen(
     id_examen INT PRIMARY KEY,

@@ -11,11 +11,13 @@ const carfacs = require('../controllers/carfac.js');
 const asignar = require('../controllers/asignar.js');
 const tema = require('../controllers/tema.js');
 const comentario = require('../controllers/comentario.js');
+const tema_ciencia = require('../controllers/tema_ciencia.js');
 const chat = require('../controllers/chat.js');
 const mensaje = require('../controllers/mensaje.js');
 const estadistica = require('../controllers/estadistica.js');
 const examen = require('../controllers/examen.js');
 const nota = require('../controllers/nota.js');
+const FCC = require('../controllers/FCC.js');
 /*********************** get / posts ***********************/
 
 
@@ -91,4 +93,11 @@ router.route('/nota/(:tipo)?(&:id)?')
 router.route('/exame/:id?')
     .get(examen.gets);
 
+router.options('/temcie',cors()); 
+router.route('/temcie/:id?')
+    .get(tema_ciencia.get)
+    .post(tema_ciencia.post);
+
+router.route('/FCC/(:tipo)?(&:id)?')
+    .get(FCC.get);
 module.exports = router;

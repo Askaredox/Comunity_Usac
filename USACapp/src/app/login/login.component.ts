@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { RolService } from '../services/rol.service';
 import { UsuarioService }from '../services/usuario.service';
 import { Rol } from '../objects/rol';
-import {Usuario} from '../objects/usuario';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Usuario } from '../objects/usuario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router} from '@angular/router';
 
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   pass:string;
   passE:boolean=false;
   temporal:Usuario;
-
+  max:number=0;
   constructor(
     private rolService:RolService,
     private usuarioService:UsuarioService,
@@ -32,11 +32,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.getRoles();
+    
   }
   getRoles():void{
     this.rolService.getRols()
       .subscribe(
-        data => {this.roles = data;},
+        data => {
+          this.roles = data;
+          this.max=this.roles.length;
+        },
         (err) => {console.error(err);}
       );
   }
