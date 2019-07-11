@@ -4,6 +4,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Usuario } from '../objects/usuario';
+import { PageEvent } from '@angular/material/paginator';
 
 export interface Examen{
   ID_EXAMEN:number;
@@ -42,7 +43,6 @@ export interface Estudiante{
 export class TExamComponent implements OnInit {
   user:Usuario;
   examenes:Examen[]=Array<Examen>();
-
   pageIndex:number = 0;
   pageSize:number = 5;
   lowValue:number = 0;

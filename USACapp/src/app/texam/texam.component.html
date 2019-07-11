@@ -60,7 +60,7 @@
 <mat-paginator style="width: 80%; margin:auto; margin-bottom: 20px" 
     [length]="examenes.length" 
     [pageSize]="pageSize" 
-    (page)="pageEvent = getPaginatorData($event)">
+    (page)="getPaginatorData($event)">
 </mat-paginator>
 <pre class="space"> 
 

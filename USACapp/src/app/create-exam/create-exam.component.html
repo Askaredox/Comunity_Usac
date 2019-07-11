@@ -1,14 +1,16 @@
 <div>
       <mat-form-field style="left:20%; width:120px;margin-right:140px">
             <input matInput type="number" placeholder="Tiempo limite" [(ngModel)]="timem">
+            <label style="left: 20px">minutos</label>
       </mat-form-field>
-      <label>minutos</label>
+      
 </div>
 <div>
       <mat-form-field style="left:20%; width:120px;margin-right:140px">
             <input matInput type="number" placeholder="Tiempo limite" [(ngModel)]="times">
+            <label style="left: 20px">segundos</label>
       </mat-form-field>
-      <label>segundos</label>
+      
 </div>
 <mat-divider></mat-divider>
 <mat-card class="card" *ngFor="let pre of preguntas">

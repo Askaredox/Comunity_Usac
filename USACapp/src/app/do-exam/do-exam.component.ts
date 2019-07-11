@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../objects/usuario';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { ExamService } from '../services/exam.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export interface Respuesta{
   TEXTO:string;
@@ -22,7 +23,7 @@ export interface Pregunta{
   templateUrl: './do-exam.component.html',
   styleUrls: ['./do-exam.component.scss']
 })
-export class DoExamComponent implements OnInit {
+export class DoExamComponent implements OnInit,OnDestroy {
   id_exam:number;
   user:Usuario;
   preguntas:Pregunta[]=new Array<Pregunta>();
@@ -30,6 +31,7 @@ export class DoExamComponent implements OnInit {
   timeM:number=0;
   timeS:number=0;
   interval;
+  start: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private router:Router,
@@ -52,7 +54,6 @@ export class DoExamComponent implements OnInit {
         return;
       }
     }
-
     this.examServ.getExamI(this.id_exam)
     .subscribe(val=>{
       this.timeLeft=val.TIEMPO;
@@ -63,6 +64,10 @@ export class DoExamComponent implements OnInit {
     this.startTimer();
 
     this.getPreguntas();
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.interval);
   }
   getPreguntas(){
     this.examServ.getPreg(this.id_exam)

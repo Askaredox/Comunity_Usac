@@ -5,6 +5,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Usuario } from '../objects/usuario';
 import { Router } from '@angular/router';
 import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tema',
